@@ -1,0 +1,58 @@
+<md-card class="md-whiteframe-2dp">
+
+  <md-card-title>
+    <span *ngIf="isUpdateMode" >Update {{ model?.firstname }} {{ model?.lastname }}</span>
+    <span *ngIf="!isUpdateMode">Create new person</span>
+  </md-card-title>
+
+  <md-card-content>
+    <form #f="ngForm">
+
+      <p *ngIf="isUpdateMode">
+        <md-input style="width:100%" placeholder="ID (disabled)" disabled  name="id" [ngModel]="model.id"></md-input>
+      </p>
+
+      <table style="width: 100%" cellspacing="0">
+        <tr>
+          <td>
+            <md-input placeholder="First name" [(ngModel)]="model.firstname" name="firstname"></md-input>
+            <md-input placeholder="Last Name" [(ngModel)]="model.lastname" name="lastname"></md-input>
+          </td>
+          <td class="align-right">
+            <img width="100" src="{{ model.photo }}"/>
+            <input type="hidden" [(ngModel)]="model.photo" name="photo">
+          </td>
+        </tr>
+      </table>
+
+      <p>
+        <md-input placeholder="Email" style="width:100%" [(ngModel)]="model.email" name="email" #email type="email"></md-input>
+      </p>
+
+      <p>
+        <md-input placeholder="Address" style="width:100%" [(ngModel)]="model.address.street" name="street"></md-input>
+      </p>
+
+      <p>
+        <md-input placeholder="City" [(ngModel)]="model.address.city" name="city"></md-input>
+        <md-input placeholder="Postal Code" [(ngModel)]="model.address.postalCode" name="postalCode"></md-input>
+      </p>
+
+      <p>
+        <md-input placeholder="Phone (ex: 0612345678)" style="width:100%" [(ngModel)]="model.phone" name="phone"></md-input>
+      </p>
+
+      <p>
+        <md-checkbox name="isManager" [(ngModel)]="model.isManager">Manager</md-checkbox>
+      </p>
+
+    </form>
+  </md-card-content>
+
+
+  <md-card-actions align="end">
+    <button md-button type="button" (click)="cancel()">Cancel</button>
+    <button md-button color="primary" type="submit" (click)="submit()">Save</button>
+  </md-card-actions>
+
+</md-card>
