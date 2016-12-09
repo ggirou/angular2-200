@@ -1,5 +1,10 @@
 #!/usr/bin/env bash -e
 
+# Imports step folders from step branches
+# step-01 branch -> step-01 folder
+# step-01-solution branch -> step-01-solution folder
+# ...
+
 for STEP in {1..21}
 do
     STEP=`printf %02d $STEP`
