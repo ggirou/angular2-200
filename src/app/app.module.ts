@@ -12,6 +12,7 @@ import { PeopleAppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { PersonComponent } from './person/index';
 import { PeopleComponent } from "./people/index";
+import { CardComponent } from "./shared/index";
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { PeopleComponent } from "./people/index";
     PeopleAppComponent,
     HomeComponent,
     PersonComponent,
-    PeopleComponent
+    PeopleComponent,
+    CardComponent
   ],
   providers: [ ],
   bootstrap: [
