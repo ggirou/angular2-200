@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpModule } from '@angular/http';
 import { RouterModule } from '@angular/router';
+import { FormsModule } from '@angular/forms';
 // MATERIAL DESIGN MODULES
 import { MaterialModule } from '@angular/material';
 
@@ -12,13 +13,14 @@ import { PeopleAppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { PersonComponent } from './person/index';
 import { PeopleComponent } from "./people/index";
-import { CardComponent } from "./shared/index";
+import { CardComponent, FormComponent } from "./shared/index";
 
 @NgModule({
   imports: [
     BrowserModule,
     HttpModule,
     RouterModule,
+    FormsModule,
     MaterialModule.forRoot(),
     APP_ROUTES
   ],
@@ -27,7 +29,8 @@ import { CardComponent } from "./shared/index";
     HomeComponent,
     PersonComponent,
     PeopleComponent,
-    CardComponent
+    CardComponent,
+    FormComponent
   ],
   providers: [ ],
   bootstrap: [

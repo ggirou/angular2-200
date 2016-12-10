@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
+import { Http, Headers } from '@angular/http';
+import 'rxjs/add/operator/mergeMap';
 import { environment } from "../../environments/environment";
 
 @Component({
@@ -83,6 +84,31 @@ export class PeopleComponent implements OnInit {
                 }
             })
             .subscribe( (people: any[]) => this._people = people);
+    }
+
+    /**
+     * Function to add one person
+     *
+     * @param person
+     */
+    add(person: any) {
+        const requestOptions = { headers: new Headers({'Content-Type': 'application/json'})};
+        this._http.post(this._backendURL.allPeople, JSON.stringify(person), requestOptions)
+            .flatMap( () => {
+                return this._http.get(this._backendURL.allPeople)
+                    .map( res => {
+                        if (res.status === 200) {
+                            return res.json();
+                        }
+                        else {
+                            return [];
+                        }
+                    });
+            })
+            .subscribe( (people: any[]) => {
+                this._people = people;
+                this.hideDialog();
+            });
     }
 
     /**
