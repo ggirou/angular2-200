@@ -17,26 +17,26 @@ import { CardComponent, FormComponent } from "./shared/index";
 import { UpdateComponent } from "./update/index";
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        HttpModule,
-        RouterModule,
-        FormsModule,
-        MaterialModule.forRoot(),
-        APP_ROUTES
-    ],
-    declarations: [
-        PeopleAppComponent,
-        HomeComponent,
-        PersonComponent,
-        PeopleComponent,
-        CardComponent,
-        FormComponent,
-        UpdateComponent
-    ],
-    providers: [ ],
-    bootstrap: [
-        PeopleAppComponent
-    ]
+  imports: [
+    BrowserModule,
+    HttpModule,
+    RouterModule,
+    FormsModule,
+    MaterialModule.forRoot(),
+    APP_ROUTES
+  ],
+  declarations: [
+    PeopleAppComponent,
+    HomeComponent,
+    PersonComponent,
+    PeopleComponent,
+    CardComponent,
+    FormComponent,
+    UpdateComponent
+  ],
+  providers: [ ],
+  bootstrap: [
+    PeopleAppComponent
+  ]
 })
 export class AppModule { }
