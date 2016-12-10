@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter, OnChanges } from '@angular/core';
+import { FormControl, Validators, FormGroup } from "@angular/forms";
 
 @Component({
     selector: 'sfeir-form',
@@ -14,6 +15,8 @@ export class FormComponent implements OnInit, OnChanges {
     private _cancel$: EventEmitter<any>;
     // private property to store submit$ value
     private _submit$: EventEmitter<any>;
+    // private property to store form value
+    private _form: FormGroup;
 
     /**
      * Component constructor
@@ -23,6 +26,7 @@ export class FormComponent implements OnInit, OnChanges {
         this._cancel$ = new EventEmitter();
         this._model = {address:{}};
         this._isUpdateMode = false;
+        this._form = this._buildForm();
     }
 
     /**
@@ -41,6 +45,15 @@ export class FormComponent implements OnInit, OnChanges {
      */
     get model(): any {
         return this._model;
+    }
+
+    /**
+     * Returns private property _form
+     *
+     * @returns {FormGroup}
+     */
+    get form(): FormGroup {
+        return this._form;
     }
 
     /**
@@ -85,6 +98,7 @@ export class FormComponent implements OnInit, OnChanges {
         if(record.model && record.model.currentValue) {
             this._model = record.model.currentValue;
             this._isUpdateMode = !!this._model;
+            this._form.patchValue(this._model);
         }
     }
 
@@ -98,7 +112,37 @@ export class FormComponent implements OnInit, OnChanges {
     /**
      * Function to emit event to submit form and person
      */
-    submit() {
-        this._submit$.emit(this._model);
+    submit(person: any) {
+        this._submit$.emit(person);
+    }
+
+    /**
+     * Function to build our form
+     *
+     * @returns {FormGroup}
+     *
+     * @private
+     */
+    private _buildForm(): FormGroup {
+        return new FormGroup({
+            id: new FormControl(''),
+            firstname: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(2)
+            ])),
+            lastname: new FormControl('', Validators.compose([
+                Validators.required, Validators.minLength(2)
+            ])),
+            email: new FormControl('', Validators.required),
+            photo: new FormControl('https://randomuser.me/api/portraits/lego/6.jpg'),
+            address: new FormGroup({
+                street: new FormControl(''),
+                city: new FormControl(''),
+                postalCode: new FormControl('')
+            }),
+            phone: new FormControl('', Validators.compose([
+                Validators.required, Validators.pattern('\\d{10}')
+            ])),
+            isManager: new FormControl('')
+        });
     }
 }
