@@ -12,6 +12,8 @@ export class PeopleComponent implements OnInit {
     private _people: any[];
     // private property to store all backend URLs
     private _backendURL: any;
+    // private property to store dialogStatus value
+    private _dialogStatus: string;
 
     /**
      * Component constructor
@@ -19,6 +21,7 @@ export class PeopleComponent implements OnInit {
     constructor(private _http: Http) {
         this._people = [];
         this._backendURL = {};
+        this._dialogStatus = 'inactive';
 
         // build backend base url
         let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
@@ -37,6 +40,15 @@ export class PeopleComponent implements OnInit {
      */
     get people(): any[] {
         return this._people;
+    }
+
+    /**
+     * Returns private property _dialogStatus
+     *
+     * @returns {string}
+     */
+    get dialogStatus(): string {
+        return this._dialogStatus
     }
 
     /**
@@ -71,5 +83,19 @@ export class PeopleComponent implements OnInit {
                 }
             })
             .subscribe( (people: any[]) => this._people = people);
+    }
+
+    /**
+     * Function to display modal
+     */
+    showDialog() {
+        this._dialogStatus = 'active';
+    }
+
+    /**
+     * Function to hide modal
+     */
+    hideDialog() {
+        this._dialogStatus = 'inactive';
     }
 }
