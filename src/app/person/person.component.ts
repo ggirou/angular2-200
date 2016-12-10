@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Http } from '@angular/http';
-import { environment } from "../../environments/environment";
+import { PeopleService } from "../shared/index";
 
 @Component({
     selector: 'sfeir-person',
@@ -10,24 +9,12 @@ import { environment } from "../../environments/environment";
 export class PersonComponent implements OnInit {
     // private property to store person value
     private _person: any;
-    // private property to store all backend URLs
-    private _backendURL: any;
 
     /**
      * Component constructor
      */
-    constructor(private _http: Http) {
+    constructor(private _peopleService: PeopleService) {
         this._person = {};
-        this._backendURL = {};
-
-        // build backend base url
-        let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
-        if (environment.backend.port) {
-            baseUrl += `:${environment.backend.port}`;
-        }
-
-        // build all backend urls
-        Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[k] = `${baseUrl}${environment.backend.endpoints[k]}`);
     }
 
     /**
@@ -43,31 +30,13 @@ export class PersonComponent implements OnInit {
      * OnInit implementation
      */
     ngOnInit() {
-        this._http.get(this._backendURL.allPeople)
-            .map( res => {
-                if (res.status === 200) {
-                    return res.json();
-                }
-                else {
-                    return [{}];
-                }
-            })
-            .subscribe( (persons: any[]) => this._person = persons.shift());
+        this._peopleService.fetch().subscribe((persons: any[]) => persons.length > 0 ? this._person = persons.shift() : this._person = {});
     }
 
     /**
      * Returns random people
      */
     random() {
-        this._http.get(this._backendURL.randomPeople)
-            .map( res => {
-                if (res.status === 200) {
-                    return res.json();
-                }
-                else {
-                    return {};
-                }
-            })
-            .subscribe( (person: any) => this._person = person);
+        this._peopleService.fetchRandom().subscribe((person: any) => this._person = person);
     }
 }
