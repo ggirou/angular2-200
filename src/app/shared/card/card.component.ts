@@ -1,4 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Router } from "@angular/router";
 
 @Component({
     selector: 'sfeir-card',
@@ -14,7 +15,7 @@ export class CardComponent implements OnInit {
     /**
      * Component constructor
      */
-    constructor() {
+    constructor(private _router: Router) {
         this._person = {};
         this._delete$ = new EventEmitter();
     }
@@ -59,5 +60,14 @@ export class CardComponent implements OnInit {
      */
     delete(person: any) {
         this._delete$.emit(person);
+    }
+
+    /**
+     * Function to navigate to manager details
+     */
+    goToManagerIfExist() {
+        if (this._person.managerId) {
+            this._router.navigate(['/person', this._person.managerId]);
+        }
     }
 }

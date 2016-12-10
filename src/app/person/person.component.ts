@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 import { PeopleService } from "../shared/index";
 
 @Component({
@@ -9,12 +10,24 @@ import { PeopleService } from "../shared/index";
 export class PersonComponent implements OnInit {
     // private property to store person value
     private _person: any;
+    // private property to store flag to know if it's a person
+    private _isPerson: boolean;
 
     /**
      * Component constructor
      */
-    constructor(private _peopleService: PeopleService) {
+    constructor(private _peopleService: PeopleService, private _route: ActivatedRoute) {
         this._person = {};
+        this._isPerson = false;
+    }
+
+    /**
+     * Returns flag to know if we are on a profil or on HP
+     *
+     * @returns {boolean}
+     */
+    get isPerson(): boolean {
+        return this._isPerson;
     }
 
     /**
@@ -30,7 +43,19 @@ export class PersonComponent implements OnInit {
      * OnInit implementation
      */
     ngOnInit() {
-        this._peopleService.fetch().subscribe((persons: any[]) => persons.length > 0 ? this._person = persons.shift() : this._person = {});
+        this._route.params.subscribe(params => {
+            const id = params['id'];
+            if (!id) {
+                this.random();
+                this._isPerson = false;
+            }
+            else {
+                this._peopleService.fetchOne(id).subscribe((person: any) => {
+                    this._person = person;
+                    this._isPerson = true;
+                })
+            }
+        });
     }
 
     /**
