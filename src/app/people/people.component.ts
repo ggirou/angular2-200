@@ -44,7 +44,32 @@ export class PeopleComponent implements OnInit {
      */
     ngOnInit() {
         this._http.get(this._backendURL.allPeople)
-            .map( res => res.json() )
+            .map( res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+                else {
+                    return [];
+                }
+            })
+            .subscribe( (people: any[]) => this._people = people);
+    }
+
+    /**
+     * Function to delete on person
+     *
+     * @param person
+     */
+    delete(person: any) {
+        this._http.delete(this._backendURL.onePeople.replace(':id', person.id))
+            .map( res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+                else {
+                    return [];
+                }
+            })
             .subscribe( (people: any[]) => this._people = people);
     }
 }

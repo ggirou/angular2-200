@@ -44,7 +44,14 @@ export class PersonComponent implements OnInit {
      */
     ngOnInit() {
         this._http.get(this._backendURL.allPeople)
-            .map( res => res.json() )
+            .map( res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+                else {
+                    return [{}];
+                }
+            })
             .subscribe( (persons: any[]) => this._person = persons.shift());
     }
 
@@ -53,7 +60,14 @@ export class PersonComponent implements OnInit {
      */
     random() {
         this._http.get(this._backendURL.randomPeople)
-            .map( res => res.json() )
+            .map( res => {
+                if (res.status === 200) {
+                    return res.json();
+                }
+                else {
+                    return {};
+                }
+            })
             .subscribe( (person: any) => this._person = person);
     }
 }
