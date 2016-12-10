@@ -14,6 +14,7 @@ import { HomeComponent } from './home/index';
 import { PersonComponent } from './person/index';
 import { PeopleComponent } from "./people/index";
 import { CardComponent, FormComponent } from "./shared/index";
+import { UpdateComponent } from "./update/index";
 
 @NgModule({
   imports: [
@@ -30,7 +31,8 @@ import { CardComponent, FormComponent } from "./shared/index";
     PersonComponent,
     PeopleComponent,
     CardComponent,
-    FormComponent
+    FormComponent,
+    UpdateComponent
   ],
   providers: [ ],
   bootstrap: [
