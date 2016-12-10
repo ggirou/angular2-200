@@ -2,12 +2,12 @@
 
 var _ = require('underscore');
 var PEOPLES = require('./data/persons').peoples.map(
-  person => {
-    // work with timestamps, it's cleaner
-    person.entryDate = parseDate(person.entryDate);
-    person.birthDate = parseDate(person.birthDate);
-    return person;
-  }
+    person => {
+        // work with timestamps, it's cleaner
+        person.entryDate = parseDate(person.entryDate);
+        person.birthDate = parseDate(person.birthDate);
+        return person;
+    }
 );
 
 
