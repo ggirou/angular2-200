@@ -7,6 +7,7 @@ import { MaterialModule } from '@angular/material';
 
 import { PeopleAppComponent } from './app.component';
 import { HomeComponent } from './home/index';
+import { PersonComponent } from "./person/index";
 
 @NgModule({
   imports: [
@@ -15,7 +16,8 @@ import { HomeComponent } from './home/index';
   ],
   declarations: [
     PeopleAppComponent,
-    HomeComponent
+    HomeComponent,
+    PersonComponent
   ],
   providers: [ ],
   bootstrap: [
