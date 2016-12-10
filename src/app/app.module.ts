@@ -13,7 +13,7 @@ import { PeopleAppComponent } from './app.component';
 import { HomeComponent } from './home/index';
 import { PersonComponent } from './person/index';
 import { PeopleComponent } from "./people/index";
-import { CardComponent, FormComponent, PeopleService, NaPipe } from "./shared/index";
+import { CardComponent, FormComponent, PeopleService, NaPipe, SfeirBadgeDirective } from "./shared/index";
 import { UpdateComponent } from "./update/index";
 
 @NgModule({
@@ -33,7 +33,8 @@ import { UpdateComponent } from "./update/index";
     CardComponent,
     FormComponent,
     UpdateComponent,
-    NaPipe
+    NaPipe,
+    SfeirBadgeDirective
   ],
   providers: [
     PeopleService
