@@ -19,7 +19,7 @@ import { HomeComponent } from './home/index';
   ],
   providers: [ ],
   bootstrap: [
-    HomeComponent
+    PeopleAppComponent
   ]
 })
 export class AppModule { }
