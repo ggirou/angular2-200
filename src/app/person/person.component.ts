@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { PEOPLE } from '../_static/people';
+import { Http } from '@angular/http';
+import { environment } from "../../environments/environment";
 
 @Component({
     selector: 'sfeir-person',
@@ -9,12 +10,24 @@ import { PEOPLE } from '../_static/people';
 export class PersonComponent implements OnInit {
     // private property to store person value
     private _person: any;
+    // private property to store all backend URLs
+    private _backendURL: any;
 
     /**
      * Component constructor
      */
-    constructor() {
-        this._person = PEOPLE[0];
+    constructor(private _http: Http) {
+        this._person = {};
+        this._backendURL = {};
+
+        // build backend base url
+        let baseUrl = `${environment.backend.protocol}://${environment.backend.host}`;
+        if (environment.backend.port) {
+            baseUrl += `:${environment.backend.port}`;
+        }
+
+        // build all backend urls
+        Object.keys(environment.backend.endpoints).forEach(k => this._backendURL[k] = `${baseUrl}${environment.backend.endpoints[k]}`);
     }
 
     /**
@@ -30,12 +43,17 @@ export class PersonComponent implements OnInit {
      * OnInit implementation
      */
     ngOnInit() {
+        this._http.get(this._backendURL.allPeople)
+            .map( res => res.json() )
+            .subscribe( (persons: any[]) => this._person = persons.shift());
     }
 
     /**
      * Returns random people
      */
     random() {
-        this._person = PEOPLE[ (Math.random() * PEOPLE.length) | 0 ];
+        this._http.get(this._backendURL.randomPeople)
+            .map( res => res.json() )
+            .subscribe( (person: any) => this._person = person);
     }
 }
